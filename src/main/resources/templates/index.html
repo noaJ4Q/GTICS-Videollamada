@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+              integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
+              crossorigin="anonymous">
+        <title>Reunión</title>
+    </head>
+    <body class="min-vh-100 d-flex justify-content-center align-items-center">
+        <div class="p-4" style="background: rgb(220, 220, 220); border-radius: 15px">
+            <button class="btn btn-primary mb-3" onclick="crearReunion()">Crear reunión</button>
+            <br/>
+            <div class="hstack gap-2 mb-3">
+                <input class="form-control" type="text" id="copyInput">
+                <button style="white-space: nowrap" class="btn btn-primary" onclick="copiar()">Copiar link</button>
+            </div>
+            <p>Copie y pegue el link para ingresar a la reunión</p>
+        </div>
+
+        <script>
+            // Función crear ID de la videollamada
+            function crearReunion() {
+                let meetingId =  'xxxxyxxx'.replace(/[xy]/g, function(c) {
+                    let r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+                    return v.toString(16);
+                });
+                console.log("http://"+ window.location.host + "?meetingId="+ meetingId)
+                document.getElementById("copyInput").value = window.location.host + "/reunion?id="+ meetingId;
+            }
+
+            // Función copiar link
+            function copiar() {
+
+                let copyText = document.getElementById("copyInput");
+                copyText.select();
+                copyText.setSelectionRange(0, 99999);
+
+                navigator.clipboard.writeText(copyText.value);
+            }
+        </script>
+    </body>
+</html>
